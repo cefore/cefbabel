@@ -2,7 +2,7 @@
 # Cefbabel
 
 ## 1. Overview
-Cefbabel is a routing daemon for Cefore, which is compliant with a CCNx version 1.0 protocol specified by IETF/IRTF RFCs 8569 and 8609. Cefbabel is based on a Babeld[^1] protocol which is a distance-vector routing algorithm over IP. Cefbabel builds the shortest-path in a Cefore network by inserting FIB entries into cefnetd, a forwarding daemon of CCNx packets.  
+Cefbabel is a routing daemon for Cefore, which is compliant with a CCNx version 1.0 protocol specified by IETF/IRTF RFCs 8569 and 8609. Cefbabel is based on a Babeld[^1] protocol which is a distance-vector routing algorithm over IP. Cefbabel builds the shortest-path in a Cefore network by inserting FIB entries into cefnetd, a forwarding daemon of Cefore, running on the path.
 
 [^1]: Babeld reference https://www.irif.fr/~jch/software/babel/  
 
