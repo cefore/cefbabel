@@ -1,0 +1,16 @@
+
+25 Feb 2020: cefbabel 0.2.1
+
+  * Bug fix MPMS
+
+25 Feb 2020: cefbabel 0.2.0
+
+  * based babeld update to 1.9.1
+  * Add MPSS/MPMS
+  * Add cefbabelstatus
+
+23 Feb 2020: cefbabel 0.1.0
+
+  * Create new
+
+
