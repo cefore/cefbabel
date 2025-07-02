@@ -2,7 +2,7 @@
 # Cefbabel
 
 ## 1. Overview
-Cefbabel is routing daemon for Cefore compliant with a CCNx version 1.0 protocol. Cefbabel is based on a Babeld[^1] protocol which is a distance-vector routing algorithm over IP. Cefbabel builds the shortest-path in Cefore network by inserting FIB entries.  
+Cefbabel is a routing daemon for Cefore, which is compliant with a CCNx version 1.0 protocol specified by IETF/IRTF RFCs 8569 and 8609. Cefbabel is based on a Babeld[^1] protocol which is a distance-vector routing algorithm over IP. Cefbabel builds the shortest-path in a Cefore network by inserting FIB entries into cefnetd, a forwarding daemon of CCNx packets.  
 
 [^1]: Babeld reference https://www.irif.fr/~jch/software/babel/  
 
@@ -19,30 +19,33 @@ $ make
 $ sudo make install
 ```
 
-## 3. How to use
+## 3. Getting started
 
 ### Start Cefbabel
 
-Start Cefbabel on each node running Cefore(cefnetd) by specifying the set of interfaces used by Cefore.  
-> [NOTE]  If you want to know how to run Cefore daemon (cefnetd), see Cefore's README.
+Start Cefbabel on each node running Cefore(cefnetd) by specifying the set of interfaces used by Cefore. Before starting ```cefbabeld```, please confirm that ```cefnetd``` is already up.
+> [NOTE] If you want to know how to run Cefore daemon (cefnetd), see Cefore's [README](https://github.com/cefore).  
+
 ```console
 $ cefbabeld interface... [options]
 ```
-> [NOTE]  Please check options list [here](#run-options)
+> [NOTE] Option list is [here](#run-options)
 
 If a node runnnig Cefore has multiple interfaces that you want to connect to the CCNx network, just list up all of them. For example, 
 ```console
 $ cefbabeld enp0s3 enp0s8 ...
 ```
 
-### Insert static FIB  and advertise route information by Cefbabel
+### Route advertisement
+#### At source (publisher) node
+Please insert static FIB to trigger advertisement of route information by Cefbabel.
 
-Add route information (FIB entry) to Cefore for a content whose name is “ccnx:/sample/content”.
+For example, add route information (FIB entry) to Cefore for a content whose name prefix is “ccnx:/sample/content”.
 ```console
-$ cefroute add ccnx:/sample/content udp 192.168.1.10
+ $ cefroute add ccnx:/sample/content udp 192.168.1.10
 ```
-### Check the advertised route information
-Check FIB of cefnetd in another node.
+#### Router nodes
+Check whether the advertised route information is successfully created in FIB of another node, which is connected to the publisher node.
 ```console
 $ cefstatus
 CCNx Version     : 1
@@ -73,18 +76,18 @@ PIT(App) :
 PIT :
   Entry is empty
 ```
-Please confirm that the registered FIB is displayed.
+Please confirm that the registered FIB "ccnx:/sample/content" is displayed.
 
 ### Run Options
 
-| option | description                              |
-| ------ | ---------------------------------------- |
-| -D     | deamonaize                               |
-| -H NUM | hello interval (default: 4s)             |
-| -V     | show Cefbabel version                    |
-| -X NUM | port number for Cefore (default: 9896)   |
-| -d NUM | output debug level (1:info 2:detail)     |
-| -p NUM | port number for Cefbabel (default: 9897) |
+| option | description                                         |
+| ------ | --------------------------------------------------- |
+| -D     | deamonaize                                          |
+| -H NUM | specify hello interval (default: 4s)                |
+| -V     | show the Cefbabel version                           |
+| -X NUM | specify port number to be used for connecting Cefore(cefnetd) (default: 9896)   |
+| -d NUM | specify debug level for output (1:info 2:detail)    |
+| -p NUM | specify port number of Cefbabel (default: 9897)     |
 
 > [NOTE]  The above options are commonly used options.
 
